@@ -353,6 +353,15 @@ p{
         }
     }
 }
+
+/* ==================================================
+  Schedule Styling
+  ================================================== */
+  .start-time {
+    font-weight: normal;
+  }
+
+
 /* ==================================================
   Team Styling
   ================================================== */
@@ -441,6 +450,13 @@ p{
         }
     }
 }
+
+/* ==================================================
+  Contact Page
+  =================================================== */
+  #map {
+    min-height: 300px;
+  }
 /* ==================================================
   Footer Styling
   ================================================== */
@@ -459,6 +475,22 @@ p{
     .btn {
         margin-bottom: 25px;
     }
+    .cta {
+      background-color: inherit;
+      padding: inherit;
+      margin-left: 0;
+      padding-left: 0;
+      a {
+        color: white;
+        opacity: .75;
+        &:hover{
+          opacity: 1;
+        }
+      }
+      i {
+          padding-right: 4px;
+      }
+    }
     .copyright-text {
     a {
       color: #fff;
@@ -473,6 +505,9 @@ p{
             opacity: .25;
             &:hover {
                 opacity: 1;
+            }
+            &:first-child {
+              margin-left: 0;
             }
         }
     }
