@@ -414,11 +414,11 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 8pm" ]
+                        [ text "7pm - 60mins" ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 8pm" ]
+                        [ text "7pm - 60mins" ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
@@ -440,7 +440,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "10am - 11am" ]
+                        [ text "10am - 75mins" ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
@@ -470,7 +470,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "8am - 9am" ]
+                        [ text "10am - 60mins" ]
                     , H.td []
                         [ text "-" ]
                     ]
@@ -492,7 +492,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 8pm" 
+                        [ text "7pm - 60mins" 
                         ]
                     , H.td []
                         [ text "-" ]
@@ -500,7 +500,18 @@ schedule =
                         [ text "-" ]
                     ]
                     ]
-                ]
+                ],
+                H.h3 [] [text "Class Cost"],
+                div [class "class-cost"]
+                    [   H.p [class "drop-in"] [
+                            H.strong [] [text "Drop-in: "],
+                            text "60mins class - 1,200円, 75mins class - 1,500円" 
+                        ],
+                        H.p [class "monthly"] [
+                            H.strong [] [text "Monthly: "],
+                            text "4 classes - 4,000円" 
+                        ]
+                    ]
                 ]
             ]
         ]
