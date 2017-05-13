@@ -819,7 +819,7 @@ contact =
                     [ H.strong []
                     [ text "Ahimsa Life" ]
                     , H.br []
-                    [] ,text "2 Chome−１−２４" 
+                    [] ,text "2 Chome−1-24" 
                     , H.br []
                     [] ,text "Ishibiki" 
                     , H.br []
