@@ -468,9 +468,9 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "-" ]
+                        [ text "10am - 75mins" ]
                     , H.td []
-                        [ text "10am - 60mins" ]
+                        [ text "-" ]
                     , H.td []
                         [ text "-" ]
                     ]
@@ -492,7 +492,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 60mins" 
+                        [ text "2pm & 7pm - 60mins" 
                         ]
                     , H.td []
                         [ text "-" ]
