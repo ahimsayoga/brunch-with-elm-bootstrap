@@ -276,6 +276,9 @@ p{
     }
     padding-top: 0;
     padding-bottom: 45px;
+    div.card {
+        display: block;
+    }
 }
 .feature-col {
     display: table;

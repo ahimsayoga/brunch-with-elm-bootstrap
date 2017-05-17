@@ -119,85 +119,20 @@ view ({ route } as model) =
         HomeR ->
             div []
                 [ content model
-                , div [class "nav-wrapper"] [navigation model]
+                , div [class "nav-wrapper", id "nav"] [navigation model]
                 ]
-        _ ->
+        ContactR ->
             div []
-                [ div [class "nav-wrapper"] [navigation model]
+                [ div [class "nav-wrapper", id "nav"] [navigation model]
                 , Grid.container [] [ content model ]
                 , footer
                 ]
-
-
--- navigation : Model -> Html Msg
--- navigation model =
---     H.nav [ class "navbar", id "nav" ]
---     [ div [ class "container" ]
---     [H.a [ class "navbar-brand", href "/" ]
---     [ img [ alt "", src "img/logo-nav.png" ]
---       []
---     ]
---   , H.button [ A.attribute "aria-expanded" "false", class "navbar-toggler hidden-md-up pull-right collapsed", A.attribute "data-target" "#navbar-collapse", A.attribute "data-toggle" "collapse", type_ "button" ]
---     [ H.span [ class "sr-only" ]
---       [ text "Toggle navigation" ], text "☰" 
---     ]
---   , div [ A.attribute "aria-expanded" "false", class "navbar-toggleable-sm collapse", id "navbar-collapse" ]
---     [ H.ul [ class "nav navbar-nav" ]
---       [ H.li [ class "nav-item" ]
---         [ H.a [ class "nav-link", href "about" ]
---           [ text "About",  H.span [ class "sr-only" ]
---             [ text "(current)" ]
---           ]
---         ]
---       , H.li [ class "nav-item active" ]
---         [ H.a [ class "nav-link", href "schedule" ]
---           [ text "Schedule" ]
---         ]
---       , H.li [ class "nav-item" ]
---         [ H.a [ class "nav-link", href "instructors" ]
---           [ text "Instructors" ]
---         ]
---       , H.li [ class "nav-item" ]
---         [ H.a [ class "nav-link", href "contact" ]
---           [ text "Contact" ]
---         ]
---       ]
---     ]
---   , H.nav [ class "nav social-nav pull-right hidden-sm-down" ]
---     [ H.a [ href "http://facebook.com/ahimsayogajp" ]
---       [ H.i [ class "fa fa-facebook" ]
---         []
---       ]
---     , H.a [ href "http://instagram.com/ahimsayogajp" ]
---       [ H.i [ class "fa fa-instagram" ]
---         []
---       ]
---     , H.a [ href "http://twitter.com/ahimsayogajp" ]
---       [ H.i [ class "fa fa-twitter" ]
---         []
---       ]
---     -- , H.a [ href "https://www.youtube.com/channel/UCihAjjXntS8Q-5a4wBIolgQ" ]
---     --   [ H.i [ class "fa fa-youtube" ]
---     --     []
---     --   ]
---     , H.a [ href "mailto:miki@ahimsayoga.jp" ]
---       [ H.i [ class "fa fa-envelope" ]
---         []
---       ]
---     ]
---   ]
---     ]
-
--- navigation : Model -> Html Msg
--- navigation model =
---     Navbar.config NavbarMsg
---         |> Navbar.items
---             [ Navbar.itemLink (linkAttrs HomeR) [ text "Home" ]
---             , Navbar.itemLink (linkAttrs ScheduleR) [ text "Schedule" ]
---             , Navbar.itemLink (linkAttrs AboutR) [ text "About" ]
---             , Navbar.itemLink (linkAttrs ContactR) [ text "Contact" ]
---             ]
---         |> Navbar.view model.navbarState
+        _ ->
+            div []
+                [ div [class "nav-wrapper", id "nav"] [navigation model]
+                , Grid.container [] [ content model ]
+                , footer
+                ]
 
 navigation : Model -> Html Msg
 navigation model =
@@ -210,9 +145,9 @@ navigation model =
             img [ alt "", src "img/logo-nav.png" ][]
         ]
         |> Navbar.items
-            [ Navbar.itemLink (linkAttrs HomeR) [ text "Home" ]
+            [ Navbar.itemLink (linkAttrs AboutR) [ text "About" ]
             , Navbar.itemLink (linkAttrs ScheduleR) [ text "Schedule" ]
-            , Navbar.itemLink (linkAttrs AboutR) [ text "About" ]
+            , Navbar.itemLink (linkAttrs InstructorsR) [ text "Instructors" ]
             , Navbar.itemLink (linkAttrs ContactR) [ text "Contact" ]
             ]
         |> Navbar.customItems [ socialMenu ]
@@ -381,7 +316,7 @@ home =
                             ]
                             ]
                         ]
-                        , div [ class "col-md-10 col-md-push-1" ]
+                        , div [ class "container justify-content-center" ]
                         [ H.h1 []
                             [ text "Shivam Yoga Center" ]
                         , H.p [ class "location" ]
@@ -404,7 +339,7 @@ schedule =
         [ 
             H.section [ class "schedule", id "schedule" ]
             [ div [ class "container text-xs-center" ]
-                [ H.h2 []
+                [ H.h2 [class "text-center"]
                 [ text "Class Schedule" ]
                 , div [ class "schedule-intro" ]
                 [ H.p []
@@ -555,7 +490,7 @@ about =
         [ 
             H.section [ class "about", id "about" ]
             [ div [ class "container text-xs-center" ]
-                [ H.h2 []
+                [ H.h2 [class "text-center"]
                 [ text "About Shivam Yoga" ]
                 , div [ class "about-text" ]
                 [ H.p []
@@ -757,7 +692,7 @@ instructors =
         [ 
             H.section [ class "team", id "team" ]
             [ div [ class "container" ]
-                [ H.h2 [ class "text-xs-center" ]
+                [ H.h2 [class "text-center"]
                 [ text "Instructors" ]
                 , div [ class "row" ]
                 [ div [ class "col-sm-3 col-xs-6 paul-bio" ]
@@ -844,7 +779,7 @@ contact =
         [ 
             H.section [ class "contact" ]
             [ div [ class "container" ]
-                [ H.h2 [ class "text-xs-center" ]
+                [ H.h2 [class "text-center"]
                 [ text "Contact Us" ]
                 , H.address []
                 [ H.p []
