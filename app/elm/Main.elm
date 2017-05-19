@@ -119,17 +119,17 @@ view ({ route } as model) =
         HomeR ->
             div []
                 [ content model
-                , div [class "nav-wrapper", id "nav"] [navigation model]
+                , div [class "nav-wrapper nav", id "nav"] [navigation model]
                 ]
         ContactR ->
             div []
-                [ div [class "nav-wrapper", id "nav"] [navigation model]
+                [ div [class "nav-wrapper nav", id "nav"] [navigation model]
                 , Grid.container [] [ content model ]
                 , footer
                 ]
         _ ->
             div []
-                [ div [class "nav-wrapper", id "nav"] [navigation model]
+                [ div [class "nav-wrapper nav", id "nav"] [navigation model]
                 , Grid.container [] [ content model ]
                 , footer
                 ]
