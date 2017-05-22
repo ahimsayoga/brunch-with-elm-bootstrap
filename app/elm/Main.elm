@@ -505,7 +505,7 @@ about =
                     ]
                 , H.p []
                     [ H.strong []
-                    [ text "Tantra" ], text " is a behavioural philosophy. Tantra means toll (Tra) of development (Tan). Tantra is also understood as an energetic philosophy because explain about the energetic physiology of the body and life. Sankhya and Tantra philosophies are a life expression of the Dravidian people." 
+                    [ text "Tantra" ], text " is a behavioural philosophy. Tantra means tool (Tra) of development (Tan). Tantra is also understood as an energetic philosophy because explain about the energetic physiology of the body and life. Sankhya and Tantra philosophies are a life expression of the Dravidian people." 
                     , H.br [] []
                     , H.strong []
                     [ text "This expression is not religious or devotional." ]
