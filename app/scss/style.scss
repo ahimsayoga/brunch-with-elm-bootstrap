@@ -17,10 +17,13 @@
   color: #fff;
 }
 
-.social-nav a {
-    font-size: 24px;
-    margin-left: 15px;
-    color: #fff;
+.social-nav { 
+    min-width: 177px;
+    a {
+        font-size: 24px;
+        margin-left: 15px;
+        color: #fff;
+    }
 }
 
 .nav-wrapper {
@@ -37,6 +40,7 @@
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-weight: 400;
     color: #fff; 
+    width: 100%;
 }
 
 .navbar-inverse .navbar-toggler-icon {
@@ -49,6 +53,7 @@
 
 div .navbar .navbar-toggler-right {
     font-size: 25px;
+    right: 0;
 } 
   
 
@@ -680,6 +685,12 @@ p{
         padding-left: 30px;
         padding-right: 30px;
     }
+}
+
+@media (max-width: 575px) {
+  .navbar { 
+    width: 100%;
+  } 
 }
 
 @media (max-width: 543px) {

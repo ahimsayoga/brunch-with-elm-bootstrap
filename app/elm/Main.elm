@@ -344,7 +344,7 @@ schedule =
                 , div [ class "schedule-intro" ]
                 [ H.p []
                     [ text "See below the 2017 schedule, please check the correct location and "  ,H.a [ href "contact" ]
-                    [ text "contact" ] ,text " to book in advance to avoid dissapointment." 
+                    [ text "contact" ] ,text " and book at least 1 day in advance to avoid dissapointment." 
                     ]
                 ]
                 , H.table [ class "table table-responsive" ]
@@ -444,7 +444,7 @@ schedule =
                     , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "https://www.google.ie/maps/place/1-112+Kib%C5%8Dgaoka,+Komatsu-shi,+Ishikawa-ken+923-0826,+Japan/@36.3974177,136.4965842,19z/data=!3m1!4b1!4m13!1m7!3m6!1s0x5ff85014c2398f95:0x541113e9b0c30afe!2sKibogaoka,+Komatsu,+Ishikawa+Prefecture+923-0826,+Japan!3b1!8m2!3d36.3985343!4d136.4975591!3m4!1s0x5ff8506b510285b5:0xd2e2361d1dfd949c!8m2!3d36.3974177!4d136.4971314" ]
-                        [ text "喜多笑天, 1-112 Kibogaoka" ] ,text ", Komatsu" 
+                        [ text "整体 喜多笑天, 1-113 Kibogaoka" ] ,text ", Komatsu" 
                         , H.br []
                         []
                         , H.span [ class "start-time" ]
@@ -459,7 +459,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "2pm & 7pm - 60mins" 
+                        [ text "1:30pm & 7pm - 60mins" 
                         ]
                     , H.td []
                         [ text "-" ]
