@@ -1,0 +1,7 @@
+{
+  "hello": "Konnichiwa Japanese",
+  "greetings": {
+    "goodDay": "Good Day.",
+    "greetName": "Hi {{name}}"
+  }
+}

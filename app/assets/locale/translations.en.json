@@ -1,0 +1,7 @@
+{
+  "hello": "Hallo English",
+  "greetings": {
+    "goodDay": "Good Day.",
+    "greetName": "Hi {{name}}"
+  }
+}
