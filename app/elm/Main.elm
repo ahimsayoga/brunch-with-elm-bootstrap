@@ -138,10 +138,10 @@ navigation : Model -> Html Msg
 navigation model =
     Navbar.config NavbarMsg
         |> Navbar.lightCustomClass "navbar-inverse"
-        |> Navbar.withAnimation        
+        |> Navbar.withAnimation
         |> Navbar.collapseSmall
-        |> Navbar.container 
-        |> Navbar.brand [ href "/" ] [ 
+        |> Navbar.container
+        |> Navbar.brand [ href "/" ] [
             img [ alt "", src "img/logo-nav.png" ][]
         ]
         |> Navbar.items
@@ -219,13 +219,13 @@ footer =
                     , div [ class "cta" ]
                     [ H.a [ href "tel:+817044408396" ]
                         [ H.i [ class "fa fa-phone" ]
-                        [] ,text "070-4440-8396" 
+                        [] ,text "070-4440-8396"
                         ]
                     ]
                     , div [ class "cta" ]
                     [ H.a [ href "mailto:miki@ahimsayoga.jp" ]
                         [ H.i [ class "fa fa-envelope" ]
-                        [] ,text "miki@ahimsayoga.jp" 
+                        [] ,text "miki@ahimsayoga.jp"
                         ]
                     ]
                     , H.nav [ class "nav social-nav footer-social-nav" ]
@@ -285,7 +285,7 @@ footer =
                     , div [ class "col-lg-3 col-xs-12 text-lg-right text-xs-center" ]
                     [ H.p [ class "copyright-text" ]
                         [ text "© "  ,H.a [ href "http://ahimsalife.jp" ]
-                        [ text "Ahimsa Life" ] ,text ", Japan" 
+                        [ text "Ahimsa Life" ] ,text ", Japan"
                         ]
                     ]
                     ]
@@ -336,7 +336,7 @@ home =
 schedule : Html Msg
 schedule =
     div []
-        [ 
+        [
             H.section [ class "schedule", id "schedule" ]
             [ div [ class "container text-xs-center" ]
                 [ H.h2 [class "text-center"]
@@ -344,7 +344,7 @@ schedule =
                 , div [ class "schedule-intro" ]
                 [ H.p []
                     [ text "See below the 2017 schedule, please check the correct location and "  ,H.a [ href "contact" ]
-                    [ text "contact" ] ,text " and book at least 1 day in advance to avoid dissapointment." 
+                    [ text "contact" ] ,text " and book at least 1 day in advance to avoid dissapointment."
                     ]
                 ]
                 , H.table [ class "table table-responsive" ]
@@ -372,7 +372,7 @@ schedule =
                     [ H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "http://ahimsayoga.jp/contact" ]
-                        [ text "Ahimsa Center" ] ,text ", Kanazawa" 
+                        [ text "Ahimsa Center" ] ,text ", Kanazawa"
                         , H.br []
                         []
                         , H.span [ class "start-time" ]
@@ -381,7 +381,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 60mins" ]
+                        [ text "10am - 60mins" ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
@@ -396,7 +396,7 @@ schedule =
                     , H.tr []
                     -- [ H.th [ scope "row" ]
                     --     [ H.a [ href "http://comingle.net/inn/kanazawa-tabine" ]
-                    --     [ text "旅音(tabi-Ne) Guesthouse" ] ,text ", Kanazawa" 
+                    --     [ text "旅音(tabi-Ne) Guesthouse" ] ,text ", Kanazawa"
                     --     , H.br []
                     --     []
                     --     , H.span [ class "start-time" ]
@@ -420,7 +420,7 @@ schedule =
                     -- , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "http://takigaharafarm.com" ]
-                        [ text "Takigahara Farm" ] ,text ", Komatsu" 
+                        [ text "Takigahara Farm" ] ,text ", Komatsu"
                         , H.br []
                         []
                         , H.span [ class "start-time" ]
@@ -444,7 +444,7 @@ schedule =
                     , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "https://www.google.ie/maps/place/1-112+Kib%C5%8Dgaoka,+Komatsu-shi,+Ishikawa-ken+923-0826,+Japan/@36.3974177,136.4965842,19z/data=!3m1!4b1!4m13!1m7!3m6!1s0x5ff85014c2398f95:0x541113e9b0c30afe!2sKibogaoka,+Komatsu,+Ishikawa+Prefecture+923-0826,+Japan!3b1!8m2!3d36.3985343!4d136.4975591!3m4!1s0x5ff8506b510285b5:0xd2e2361d1dfd949c!8m2!3d36.3974177!4d136.4971314" ]
-                        [ text "整体 喜多笑天, 1-113 Kibogaoka" ] ,text ", Komatsu" 
+                        [ text "整体 喜多笑天, 1-113 Kibogaoka" ] ,text ", Komatsu"
                         , H.br []
                         []
                         , H.span [ class "start-time" ]
@@ -459,7 +459,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "1:30pm & 7pm - 60mins" 
+                        [ text "1:30pm & 7pm - 60mins"
                         ]
                     , H.td []
                         [ text "-" ]
@@ -472,11 +472,11 @@ schedule =
                 div [class "class-cost"]
                     [   H.p [class "drop-in"] [
                             H.strong [] [text "Drop-in: "],
-                            text "60mins class - 1,200円, 75mins class - 1,500円" 
+                            text "60mins class - 1,200円, 75mins class - 1,500円"
                         ],
                         H.p [class "monthly"] [
                             H.strong [] [text "Monthly: "],
-                            text "4 classes - 4,000円" 
+                            text "4 classes - 4,000円"
                         ]
                     ]
                 ]
@@ -487,7 +487,7 @@ schedule =
 about : Html Msg
 about =
     div []
-        [ 
+        [
             H.section [ class "about", id "about" ]
             [ div [ class "container text-xs-center" ]
                 [ H.h2 [class "text-center"]
@@ -495,17 +495,17 @@ about =
                 , div [ class "about-text" ]
                 [ H.p []
                     [ H.strong []
-                    [ text "Shivam Yoga" ], text " is a philosophical and therapeutic system combining psychology and science. This traditional methodology respects the original source of Yoga knowledge which began between 7 and 10 thousands years in the Dravidian Civilization." 
+                    [ text "Shivam Yoga" ], text " is a philosophical and therapeutic system combining psychology and science. This traditional methodology respects the original source of Yoga knowledge which began between 7 and 10 thousands years in the Dravidian Civilization."
                     ]
                 , H.p []
                     [ text "The Shivam Yoga is grounded on two philosophic bases called Sankhya and Tantra philosophies." ]
                 , H.p []
                     [ H.strong []
-                    [ text "Shankhya" ], text " explains about the existence of the life and Universe based on Universal laws, mainly Karma and Dharma laws." 
+                    [ text "Shankhya" ], text " explains about the existence of the life and Universe based on Universal laws, mainly Karma and Dharma laws."
                     ]
                 , H.p []
                     [ H.strong []
-                    [ text "Tantra" ], text " is a behavioural philosophy. Tantra means tool (Tra) of development (Tan). Tantra is also understood as an energetic philosophy because explain about the energetic physiology of the body and life. Sankhya and Tantra philosophies are a life expression of the Dravidian people." 
+                    [ text "Tantra" ], text " is a behavioural philosophy. Tantra means tool (Tra) of development (Tan). Tantra is also understood as an energetic philosophy because explain about the energetic physiology of the body and life. Sankhya and Tantra philosophies are a life expression of the Dravidian people."
                     , H.br [] []
                     , H.strong []
                     [ text "This expression is not religious or devotional." ]
@@ -689,7 +689,7 @@ about =
 instructors : Html Msg
 instructors =
     div []
-        [ 
+        [
             H.section [ class "team", id "team" ]
             [ div [ class "container" ]
                 [ H.h2 [class "text-center"]
@@ -776,7 +776,7 @@ instructors =
 contact : Html Msg
 contact =
     div []
-        [ 
+        [
             H.section [ class "contact" ]
             [ div [ class "container" ]
                 [ H.h2 [class "text-center"]
@@ -786,15 +786,15 @@ contact =
                     [ H.strong []
                     [ text "Ahimsa Life" ]
                     , H.br []
-                    [] ,text "2 Chome−1-24" 
+                    [] ,text "2 Chome−1-24"
                     , H.br []
-                    [] ,text "Ishibiki" 
+                    [] ,text "Ishibiki"
                     , H.br []
-                    [] ,text "Kanazawa" 
+                    [] ,text "Kanazawa"
                     , H.br []
-                    [] ,text "Ishikawa Prefecture, 〒920-0935" 
+                    [] ,text "Ishikawa Prefecture, 〒920-0935"
                     , H.br []
-                    [] ,text "Japan" 
+                    [] ,text "Japan"
                     ]
                 , H.abbr [ title "Phone" ]
                     [ H.i [ class "fa fa-phone" ]
