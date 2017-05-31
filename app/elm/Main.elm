@@ -105,7 +105,7 @@ update msg model =
 
         TranslationsLoaded (Ok translations) ->
             ( { model | translations = translations },
-                fetchTranslations TranslationsLoaded "/locale/translations.jp.json"
+                Cmd.none
             )
 
         TranslationsLoaded (Err _) ->
@@ -122,12 +122,14 @@ handleRoute route ({ ready } as model) =
     let
         newModel =
             { model | route = route }
+        fetchLang =
+            fetchTranslations TranslationsLoaded "/locale/translations.en.json"
     in
         case route of
             HomeR ->
                 newModel ! []
             ContactR ->
-                newModel ! [ fetchTranslations TranslationsLoaded "/locale/translations.en.json" ]
+                newModel ! [ fetchLang ]
             _ ->
                 newModel ! []
 
