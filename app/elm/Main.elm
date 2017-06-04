@@ -10,6 +10,15 @@ import Bootstrap.Grid as Grid
 import Bootstrap.Navbar as Navbar exposing (attrs)
 import Bootstrap.Alert as Alert
 import Bootstrap.Grid.Col as Col
+import Http
+import I18Next exposing
+      ( t
+      , tr
+      , Translations
+      , Delims(..)
+      , initialTranslations
+      , fetchTranslations
+      )
 
 
 -- Main
@@ -36,6 +45,7 @@ type alias Model =
     , navbarState : Navbar.State
     , ready : Bool
     , error : Maybe String
+    , translations: Translations
     }
 
 
@@ -43,6 +53,7 @@ type Msg
     = RouteChanged Sitemap
     | RouteTo Sitemap
     | NavbarMsg Navbar.State
+    | TranslationsLoaded (Result Http.Error Translations)
 
 
 init : Location -> ( Model, Cmd Msg )
@@ -56,12 +67,13 @@ init location =
             , navbarState = navbarState
             , ready = False
             , error = Nothing
+            , translations = initialTranslations
             }
 
         ( model, routeCmd ) =
             handleRoute initialModel.route initialModel
     in
-        ( model, Cmd.batch [ navbarCmd, routeCmd ] )
+        ( model, Cmd.batch [ navbarCmd, routeCmd, fetchTranslations TranslationsLoaded "/locale/translations.jp.json" ] )
 
 
 
@@ -91,6 +103,14 @@ update msg model =
         NavbarMsg state ->
             { model | navbarState = state } ! []
 
+        TranslationsLoaded (Ok translations) ->
+            ( { model | translations = translations },
+                Cmd.none
+            )
+
+        TranslationsLoaded (Err _) ->
+            ( model, Cmd.none )
+
 
 parseRoute : Location -> Msg
 parseRoute =
@@ -102,8 +122,14 @@ handleRoute route ({ ready } as model) =
     let
         newModel =
             { model | route = route }
+        -- fetchLang =
+        --     fetchTranslations TranslationsLoaded "/locale/translations.en.json"
     in
         case route of
+            -- HomeR ->
+            --     newModel ! []
+            -- ContactR ->
+            --     newModel ! [ fetchLang ]
             _ ->
                 newModel ! []
 
@@ -125,13 +151,13 @@ view ({ route } as model) =
             div []
                 [ div [class "nav-wrapper nav", id "nav"] [navigation model]
                 , Grid.container [] [ content model ]
-                , footer
+                , footer model
                 ]
         _ ->
             div []
                 [ div [class "nav-wrapper nav", id "nav"] [navigation model]
                 , Grid.container [] [ content model ]
-                , footer
+                , footer model
                 ]
 
 navigation : Model -> Html Msg
@@ -145,10 +171,10 @@ navigation model =
             img [ alt "", src "img/logo-nav.png" ][]
         ]
         |> Navbar.items
-            [ Navbar.itemLink (linkAttrs AboutR) [ text "About" ]
-            , Navbar.itemLink (linkAttrs ScheduleR) [ text "Schedule" ]
-            , Navbar.itemLink (linkAttrs InstructorsR) [ text "Instructors" ]
-            , Navbar.itemLink (linkAttrs ContactR) [ text "Contact" ]
+            [ Navbar.itemLink (linkAttrs AboutR) [ text (t model.translations "nav.about") ]
+            , Navbar.itemLink (linkAttrs ScheduleR) [ text (t model.translations "nav.schedule") ]
+            , Navbar.itemLink (linkAttrs InstructorsR) [ text (t model.translations "nav.instructors") ]
+            , Navbar.itemLink (linkAttrs ContactR) [ text (t model.translations "nav.contact") ]
             ]
         |> Navbar.customItems [ socialMenu ]
         |> Navbar.view model.navbarState
@@ -189,33 +215,33 @@ content : Model -> Html Msg
 content ({ route } as model) =
     case model.route of
         HomeR ->
-            home
+            home model
 
         AboutR ->
-            about
+            about model
 
         ScheduleR ->
-            schedule
+            schedule model
 
         InstructorsR ->
-            instructors
+            instructors model
 
         ContactR ->
-            contact
+            contact model
 
         NotFoundR ->
             notFound
 
 
-footer : Html Msg
-footer =
+footer : Model -> Html Msg
+footer model =
     H.footer []
         [ H.footer [ class "site-footer", id "contact" ]
             [ div [ class "container" ]
                 [ div [ class "row" ]
                 [ div [ class "footer-col col-sm-12 col-lg-6 text-xs-center text-lg-left" ]
                     [ H.h2 []
-                    [ text "Contact Us" ]
+                    [ text (t model.translations "footer.contactus") ]
                     , div [ class "cta" ]
                     [ H.a [ href "tel:+817044408396" ]
                         [ H.i [ class "fa fa-phone" ]
@@ -249,7 +275,7 @@ footer =
                     ]
                 , div [ class "footer-col col-sm-12 col-lg-6 text-xs-center text-lg-left" ]
                     [ H.p [ class "footer-text" ]
-                    [ text "Anyone that practices Shivam Yoga seeks the improvement of conscious as a focus of daily living. This is found by observing oneself. We observe the way we express ourselves through our experiences so as to cultivate a renewed awareness of this world, Nature and the Universe." ]
+                    [ text (t model.translations "footer.body") ]
                     ]
                 ]
                 ]
@@ -260,25 +286,25 @@ footer =
                     [ H.ul [ class "list-inline" ]
                         [ H.li [ class "list-inline-item" ]
                         [ H.a [ href "/" ]
-                            [ text "Home" , H.span [ class "sr-only" ]
+                            [ text (t model.translations "nav.home") , H.span [ class "sr-only" ]
                             [ text "Toggle navigation" ]
                             ]
                         ]
                         , H.li [ class "list-inline-item" ]
                         [ H.a [ href "about" ]
-                            [ text "About" ]
+                            [ text (t model.translations "nav.about") ]
                         ]
                         , H.li [ class "list-inline-item" ]
                         [ H.a [ href "schedule" ]
-                            [ text "Schedule" ]
+                            [ text (t model.translations "nav.schedule") ]
                         ]
                         , H.li [ class "list-inline-item" ]
                         [ H.a [ href "instructors" ]
-                            [ text "Instructors" ]
+                            [ text (t model.translations "nav.instructors") ]
                         ]
                         , H.li [ class "list-inline-item" ]
                         [ H.a [ href "contact" ]
-                            [ text "Contact" ]
+                            [ text (t model.translations "nav.contact") ]
                         ]
                         ]
                     ]
@@ -300,8 +326,8 @@ notFound =
     Alert.danger [ text "Page not found" ]
 
 
-home : Html Msg
-home =
+home : Model -> Html Msg
+home model =
     div []
         [ Grid.simpleRow
             [ Grid.col
@@ -322,9 +348,9 @@ home =
                         , H.p [ class "location" ]
                             [ text "Ishikawa, Japan" ]
                         , H.p [ class "tagline" ]
-                            [ text "Join our traditional Shivam Yoga classes, proven to improve health on all levels of the body." ]
+                            [ text (t model.translations "home.intro") ]
                         , H.a [ class "btn btn-full", href "schedule" ]
-                            [ text "View Schedule" ]
+                            [ text (t model.translations "home.cta") ]
                         ]
                         ]
                     ]
@@ -333,59 +359,59 @@ home =
         ]
 
 
-schedule : Html Msg
-schedule =
+schedule : Model -> Html Msg
+schedule model =
     div []
         [
             H.section [ class "schedule", id "schedule" ]
             [ div [ class "container text-xs-center" ]
                 [ H.h2 [class "text-center"]
-                [ text "Class Schedule" ]
+                [ text (t model.translations "schedule.title") ]
                 , div [ class "schedule-intro" ]
                 [ H.p []
-                    [ text "See below the 2017 schedule, please check the correct location and "  ,H.a [ href "contact" ]
-                    [ text "contact" ] ,text " and book at least 1 day in advance to avoid dissapointment."
+                    [ text (t model.translations "schedule.intro.p1")  ,H.a [ href "contact" ]
+                    [ text (t model.translations "nav.contact") ] ,text (t model.translations "schedule.intro.p2")
                     ]
                 ]
                 , H.table [ class "table table-responsive" ]
                 [ H.thead [ class "thead-default" ]
                     [ H.tr []
                     [ H.th []
-                        [ text "Location" ]
+                        [ text (t model.translations "schedule.locations.title") ]
                     , H.th []
-                        [ text "M" ]
+                        [ text (t model.translations "schedule.days.mon") ]
                     , H.th []
-                        [ text "T" ]
+                        [ text (t model.translations "schedule.days.tues") ]
                     , H.th []
-                        [ text "W" ]
+                        [ text (t model.translations "schedule.days.wed") ]
                     , H.th []
-                        [ text "T" ]
+                        [ text (t model.translations "schedule.days.thurs") ]
                     , H.th []
-                        [ text "F" ]
+                        [ text (t model.translations "schedule.days.fri") ]
                     , H.th []
-                        [ text "Sa" ]
+                        [ text (t model.translations "schedule.days.sat") ]
                     , H.th []
-                        [ text "Su" ]
+                        [ text (t model.translations "schedule.days.sun") ]
                     ]
                     ]
                 , H.tbody []
                     [ H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "http://ahimsayoga.jp/contact" ]
-                        [ text "Ahimsa Center" ] ,text ", Kanazawa"
+                        [ text (t model.translations "schedule.locations.ahimsa.title") ]
                         , H.br []
                         []
-                        , H.span [ class "start-time" ]
-                        [ text "Starting 16th May" ]
+                        , H.span [ class "address" ]
+                        [ text (t model.translations "schedule.locations.ahimsa.address") ]
                         ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "10am - 60mins" ]
+                        [ text ("7pm - 60" ++ (t model.translations "schedule.pricing.mins")) ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "7pm - 60mins" ]
+                        [ text ("7pm - 60" ++ (t model.translations "schedule.pricing.mins")) ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
@@ -399,7 +425,7 @@ schedule =
                     --     [ text "旅音(tabi-Ne) Guesthouse" ] ,text ", Kanazawa"
                     --     , H.br []
                     --     []
-                    --     , H.span [ class "start-time" ]
+                    --     , H.span [ class "address" ]
                     --     [ text "Starting 31st May" ]
                     --     ]
                     -- , H.td []
@@ -420,11 +446,11 @@ schedule =
                     -- , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "http://takigaharafarm.com" ]
-                        [ text "Takigahara Farm" ] ,text ", Komatsu"
+                        [ text (t model.translations "schedule.locations.takigahara.title") ]
                         , H.br []
                         []
-                        , H.span [ class "start-time" ]
-                        [ text "Starting 2nd June" ]
+                        , H.span [ class "address" ]
+                        [ text (t model.translations "schedule.locations.takigahara.address") ]
                         ]
                     , H.td []
                         [ text "-" ]
@@ -437,18 +463,18 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "10am - 75mins" ]
+                        [ text ("10am - 75" ++ (t model.translations "schedule.pricing.mins")) ]
                     , H.td []
                         [ text "-" ]
                     ]
                     , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "https://www.google.ie/maps/place/1-112+Kib%C5%8Dgaoka,+Komatsu-shi,+Ishikawa-ken+923-0826,+Japan/@36.3974177,136.4965842,19z/data=!3m1!4b1!4m13!1m7!3m6!1s0x5ff85014c2398f95:0x541113e9b0c30afe!2sKibogaoka,+Komatsu,+Ishikawa+Prefecture+923-0826,+Japan!3b1!8m2!3d36.3985343!4d136.4975591!3m4!1s0x5ff8506b510285b5:0xd2e2361d1dfd949c!8m2!3d36.3974177!4d136.4971314" ]
-                        [ text "整体 喜多笑天, 1-113 Kibogaoka" ] ,text ", Komatsu"
+                        [ text (t model.translations "schedule.locations.kiboagaoka.title") ]
                         , H.br []
                         []
-                        , H.span [ class "start-time" ]
-                        [ text "Starting 2nd June" ]
+                        , H.span [ class "address" ]
+                        [ text (t model.translations "schedule.locations.kiboagaoka.address") ]
                         ]
                     , H.td []
                         [ text "-" ]
@@ -459,7 +485,7 @@ schedule =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text "1:30pm & 7pm - 60mins"
+                        [ text ("1:30pm & 7pm - 60" ++ (t model.translations "schedule.pricing.mins"))
                         ]
                     , H.td []
                         [ text "-" ]
@@ -468,15 +494,18 @@ schedule =
                     ]
                     ]
                 ],
-                H.h3 [] [text "Class Cost"],
+                H.h3 [class "class-cost-title"] [text (t model.translations "schedule.pricing.title")],
                 div [class "class-cost"]
                     [   H.p [class "drop-in"] [
-                            H.strong [] [text "Drop-in: "],
-                            text "60mins class - 1,200円, 75mins class - 1,500円"
+                            H.strong [] [text ((t model.translations "schedule.pricing.dropin") ++ ": ")],
+                            text ("60" ++  (t model.translations "schedule.pricing.mins") ++ " "
+                            ++ (t model.translations "schedule.pricing.class") ++ " - 1,200円, 75"
+                            ++ (t model.translations "schedule.pricing.mins") ++ " "
+                            ++ (t model.translations "schedule.pricing.class") ++ " - 1,500円")
                         ],
                         H.p [class "monthly"] [
-                            H.strong [] [text "Monthly: "],
-                            text "4 classes - 4,000円"
+                            H.strong [] [text ((t model.translations "schedule.pricing.monthly") ++ ": ")],
+                            text ("4 " ++ (t model.translations "schedule.pricing.classes")  ++ " - 4,000円")
                         ]
                     ]
                 ]
@@ -484,31 +513,32 @@ schedule =
         ]
 
 
-about : Html Msg
-about =
+about : Model -> Html Msg
+about model =
     div []
         [
             H.section [ class "about", id "about" ]
             [ div [ class "container text-xs-center" ]
                 [ H.h2 [class "text-center"]
-                [ text "About Shivam Yoga" ]
+                [ text (t model.translations "about.maintitle") ]
                 , div [ class "about-text" ]
                 [ H.p []
                     [ H.strong []
-                    [ text "Shivam Yoga" ], text " is a philosophical and therapeutic system combining psychology and science. This traditional methodology respects the original source of Yoga knowledge which began between 7 and 10 thousands years in the Dravidian Civilization."
+                    [ text "Shivam Yoga" ], text (" " ++ (t model.translations "about.shivamyoga.p1"))
                     ]
                 , H.p []
-                    [ text "The Shivam Yoga is grounded on two philosophic bases called Sankhya and Tantra philosophies." ]
+                    [ text (t model.translations "about.shivamyoga.p2") ]
                 , H.p []
                     [ H.strong []
-                    [ text "Shankhya" ], text " explains about the existence of the life and Universe based on Universal laws, mainly Karma and Dharma laws."
+                    [ text (t model.translations "about.shivamyoga.sankhya.title") ], text (" " ++ (t model.translations "about.shivamyoga.sankhya.body"))
                     ]
                 , H.p []
                     [ H.strong []
-                    [ text "Tantra" ], text " is a behavioural philosophy. Tantra means tool (Tra) of development (Tan). Tantra is also understood as an energetic philosophy because explain about the energetic physiology of the body and life. Sankhya and Tantra philosophies are a life expression of the Dravidian people."
-                    , H.br [] []
-                    , H.strong []
-                    [ text "This expression is not religious or devotional." ]
+                    [ text (t model.translations "about.shivamyoga.tantra.title") ], text (" " ++ (t model.translations "about.shivamyoga.tantra.body"))
+                    ]
+                , H.p []
+                    [ H.strong []
+                    [ text (t model.translations "about.shivamyoga.expression") ]
                     ]
                 ]
                 ]
@@ -516,7 +546,7 @@ about =
             ,H.section [ class "features", id "features" ]
             [ div [ class "container" ]
                 [ H.h2 [ class "text-sm-center" ]
-                [ text "Sadhana: our practice" ]
+                [ text (t model.translations "about.features.title") ]
                 , div [ class "row" ]
                 [ div [ class "feature-col col-lg-4 col-xs-12" ]
                     [ div [ class "card card-block" ]
@@ -530,7 +560,7 @@ about =
                         [ H.h3 []
                         [ text "Dharana" ]
                         , H.p []
-                        [ text "The mental concentration state by which we aim to focus the mind, lowering the frequency of our thoughts." ]
+                        [ text (t model.translations "about.features.dharana") ]
                         ]
                     ]
                     ]
@@ -546,7 +576,7 @@ about =
                         [ H.h3 []
                         [ text "Pujas" ]
                         , H.p []
-                        [ text "Pujas are realised through a transmission and a reception of energy. They are a spiritual but not devotional force." ]
+                        [ text (t model.translations "about.features.pujas") ]
                         ]
                     ]
                     ]
@@ -562,7 +592,7 @@ about =
                         [ H.h3 []
                         [ text "Pranayamas" ]
                         , H.p []
-                        [ text "Breathing exercises providing a greater flow of pranic energy and health throughout all of the levels of our being." ]
+                        [ text (t model.translations "about.features.pranayamas") ]
                         ]
                     ]
                     ]
@@ -580,7 +610,7 @@ about =
                         [ H.h3 []
                         [ text "Asanas" ]
                         , H.p []
-                        [ text "Mostly having names of animals or natural elements, through Asana we perfect ourselves as spiritual beings." ]
+                        [ text (t model.translations "about.features.asanas") ]
                         ]
                     ]
                     ]
@@ -596,7 +626,7 @@ about =
                         [ H.h3 []
                         [ text "Bandhas" ]
                         , H.p []
-                        [ text "Energising exercises for the organs and glands, activating the chakras and awakening power and discipline." ]
+                        [ text (t model.translations "about.features.bandhas") ]
                         ]
                     ]
                     ]
@@ -612,7 +642,7 @@ about =
                         [ H.h3 []
                         [ text "Kriyas" ]
                         , H.p []
-                        [ text "Detoxification and purification exercises for the physical, energetic, emotional, mental and spiritual bodies." ]
+                        [ text (t model.translations "about.features.kriyas") ]
                         ]
                     ]
                     ]
@@ -628,7 +658,7 @@ about =
                         [ H.h3 []
                         [ text "Yoganidra" ]
                         , H.p []
-                        [ text "A process of relaxation and self-knowledge, calming the mind and the flux of the emotions." ]
+                        [ text (t model.translations "about.features.yoganidra") ]
                         ]
                     ]
                     ]
@@ -644,7 +674,7 @@ about =
                         [ H.h3 []
                         [ text "Mantras" ]
                         , H.p []
-                        [ text "Non devotional chanting of mantras to propitiate and enter into a state of joy and happiness." ]
+                        [ text (t model.translations "about.features.mantras") ]
                         ]
                     ]
                     ]
@@ -660,7 +690,7 @@ about =
                         [ H.h3 []
                         [ text "Mudras" ]
                         , H.p []
-                        [ text "Mudras are gestures and energetic expressions made with the hands, arms and sometimes, the body." ]
+                        [ text (t model.translations "about.features.mudras") ]
                         ]
                     ]
                     ]
@@ -676,7 +706,7 @@ about =
                         [ H.h3 []
                         [ text "Dhyana" ]
                         , H.p []
-                        [ text "In meditation we achieve total concentration of the mind, the state of mind after Dharana has taken place." ]
+                        [ text (t model.translations "about.features.dhyana") ]
                         ]
                     ]
                     ]
@@ -686,14 +716,14 @@ about =
         ]
 
 
-instructors : Html Msg
-instructors =
+instructors : Model -> Html Msg
+instructors model =
     div []
         [
             H.section [ class "team", id "team" ]
             [ div [ class "container" ]
                 [ H.h2 [class "text-center"]
-                [ text "Instructors" ]
+                [ text (t model.translations "instructors.title") ]
                 , div [ class "row" ]
                 [ div [ class "col-sm-3 col-xs-6 paul-bio" ]
                     [ div [ class "card card-block" ]
@@ -708,7 +738,7 @@ instructors =
                         ]
                         , div [ class "team-over" ]
                         [ H.h4 [ class "hidden-md-down" ]
-                            [ text "Connect with me" ]
+                            [ text (t model.translations "instructors.connect") ]
                         , H.nav [ class "nav social-nav" ]
                             [ H.a [ href "http://twitter.com/mccrodp" ]
                             [ H.i [ class "fa fa-twitter" ]
@@ -720,7 +750,7 @@ instructors =
                             ]
                             ]
                         , H.p []
-                            [ text "Paul has 5 years experience giving Shivam Yoga classes in many countries worldwide." ]
+                            [ text (t model.translations "instructors.bios.paul") ]
                         ]
                         ]
                     ]
@@ -744,7 +774,7 @@ instructors =
                         ]
                         , div [ class "team-over" ]
                         [ H.h4 [ class "hidden-md-down" ]
-                            [ text "Connect with me" ]
+                            [ text (t model.translations "instructors.connect") ]
                         , H.nav [ class "nav social-nav" ]
                             [ H.a [ href "tel:+817044408396" ]
                             [ H.i [ class "fa fa-phone" ]
@@ -756,7 +786,7 @@ instructors =
                             ]
                             ]
                         , H.p []
-                            [ text "Miki trained in Dublin, Ireland and Kerala, India, completing qualification in Shivam Yoga Dublin." ]
+                            [ text (t model.translations "instructors.bios.miki") ]
                         ]
                         ]
                     ]
@@ -773,28 +803,24 @@ instructors =
         ]
 
 
-contact : Html Msg
-contact =
+contact : Model -> Html Msg
+contact model =
     div []
         [
             H.section [ class "contact" ]
             [ div [ class "container" ]
                 [ H.h2 [class "text-center"]
-                [ text "Contact Us" ]
+                [ text (t model.translations "contact.title") ]
                 , H.address []
                 [ H.p []
                     [ H.strong []
-                    [ text "Ahimsa Life" ]
+                    [ text (t model.translations "contact.location.title") ]
                     , H.br []
-                    [] ,text "2 Chome−1-24"
+                    [] ,text (t model.translations "contact.location.address.line1")
                     , H.br []
-                    [] ,text "Ishibiki"
+                    [] ,text (t model.translations "contact.location.address.line2")
                     , H.br []
-                    [] ,text "Kanazawa"
-                    , H.br []
-                    [] ,text "Ishikawa Prefecture, 〒920-0935"
-                    , H.br []
-                    [] ,text "Japan"
+                    [] ,text (t model.translations "contact.location.address.line3")
                     ]
                 , H.abbr [ title "Phone" ]
                     [ H.i [ class "fa fa-phone" ]
