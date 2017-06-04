@@ -136,7 +136,9 @@
           var contentString = '<div class="info-window">' +
                   '<h3>Ahimsa Center</h3>' +
                   '<div class="info-content">' +
-                  '<p>Come join our Traditional Shivam Yoga classes in English and Japanese. If you have difficulty finding us, please call: 070-4440-8396. See you soon. Om Shiva!</p>' +
+                  '<p>伝統的なShivamヨガクラスに参加しましょう。英語と日本語でクラスがあります。' +
+                  'Join our Traditional Shivam Yoga classes in English and Japanese. ' +
+                  'Tel: 070-4440-8396. Om Shiva!</p>' +
                   '</div>' +
                   '</div>';
 
@@ -173,7 +175,7 @@
 
         // Observe a specific DOM element:
         var main = document.getElementById('elm-main');
-        observeDOM(main ,function(){ 
+        observeDOM(main ,function(){
           var map = document.getElementById('map');
           if (map && main.contains(map) && !map.hasChildNodes()) {
             initMap();

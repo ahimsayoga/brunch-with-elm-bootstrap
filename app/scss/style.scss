@@ -17,7 +17,7 @@
   color: #fff;
 }
 
-.social-nav { 
+.social-nav {
     min-width: 177px;
     a {
         font-size: 24px;
@@ -34,12 +34,13 @@
     margin-left: auto;
 }
 
-.navbar { background-color: $color-primary; } 
+.navbar { background-color: $color-primary; }
 
 .navbar .navbar-nav .nav-link, .navbar .navbar-brand, .nav  {
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    // font-family: "Roboto", Helvetica, Arial, sans-serif; // This was for English.
+    font-family: "Lato", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     font-weight: 400;
-    color: #fff; 
+    color: #fff;
     width: 100%;
 }
 
@@ -54,8 +55,8 @@
 div .navbar .navbar-toggler-right {
     font-size: 25px;
     right: 0;
-} 
-  
+}
+
 
 /* ==================================================
   Elements
@@ -154,7 +155,8 @@ p{
 }
 .tagline {
     font-family: $font-primary;
-    font-size: $font-size-medium;
+    // font-size: $font-size-medium;
+    font-size: 19px;
     margin: 45px 0 75px 0;
     color: #fff;
 }
@@ -175,6 +177,7 @@ p{
         margin-right: 45px;
         padding: 0;
         margin-top: 0;
+        width: auto;
     }
     a {
         font-family: $font-secondary;
@@ -400,8 +403,15 @@ p{
 /* ==================================================
   Schedule Styling
   ================================================== */
-  .start-time {
-    font-weight: normal;
+
+  .schedule {
+    .address {
+        font-weight: normal;
+    }
+
+    .class-cost-title {
+        margin-top: 1em;
+    }
   }
 
 
@@ -435,6 +445,7 @@ p{
             padding: 0 35px;
         }
         .social-nav {
+            display: block;
             margin-bottom: 45px;
             a {
                 color: #fff;
@@ -688,9 +699,9 @@ p{
 }
 
 @media (max-width: 575px) {
-  .navbar { 
+  .navbar {
     width: 100%;
-  } 
+  }
 }
 
 @media (max-width: 543px) {

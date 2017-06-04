@@ -5,8 +5,11 @@
 // Example, group similar variables, only use variables for common colours & values
 // $all-lowercase: value;
 
-$font-primary: 'Raleway', Helvetica, Arial, sans-serif;
-$font-secondary: 'Roboto', Helvetica, Arial, sans-serif;
+// $font-primary: 'Raleway', Helvetica, Arial, sans-serif; // English fonts used
+// $font-secondary: 'Roboto', Helvetica, Arial, sans-serif; // English fonts used
+$font-primary: "Lato", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$font-secondary: "Lato", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+
 $color-primary: #bc0b66;
 $color-secondary: #382d91;
 
