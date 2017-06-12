@@ -7,6 +7,7 @@ import Route exposing (..)
 type Sitemap
     = HomeR
     | AboutR
+    | AboutEnR
     | ScheduleR
     | InstructorsR
     | ContactR
@@ -28,6 +29,11 @@ aboutR =
     AboutR := static "about"
 
 
+aboutEnR : Route Sitemap
+aboutEnR =
+    AboutEnR := static "en" </> static "about"
+
+
 instructorsR : Route Sitemap
 instructorsR =
     InstructorsR := static "instructors"
@@ -40,7 +46,7 @@ contactR =
 
 sitemap : Router Sitemap
 sitemap =
-    router [ homeR, aboutR, scheduleR, instructorsR, contactR ]
+    router [ homeR, aboutR, aboutEnR, scheduleR, instructorsR, contactR ]
 
 
 match : String -> Sitemap
@@ -57,6 +63,9 @@ toString r =
 
         AboutR ->
             reverse aboutR []
+
+        AboutEnR ->
+            reverse aboutEnR []
 
         ScheduleR ->
             reverse scheduleR []

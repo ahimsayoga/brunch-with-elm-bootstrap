@@ -220,6 +220,9 @@ content ({ route } as model) =
         AboutR ->
             about model
 
+        AboutEnR ->
+            about model
+
         ScheduleR ->
             schedule model
 
