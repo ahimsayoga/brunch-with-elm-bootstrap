@@ -407,7 +407,7 @@ schedule model =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text ("7pm - 60" ++ (t model.translations "schedule.pricing.mins")) ]
+                        [ text ("10am - 60" ++ (t model.translations "schedule.pricing.mins")) ]
                     , H.td []
                         [ text "-" ]
                     , H.td []
