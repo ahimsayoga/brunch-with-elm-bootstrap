@@ -346,7 +346,7 @@ home model =
                         [ H.h1 []
                             [ text "Shivam Yoga Center" ]
                         , H.p [ class "location" ]
-                            [ text "Ishikawa, Japan" ]
+                            [ text "Kanazawa 金沢 & Komatsu 小松" ]
                         , H.p [ class "tagline" ]
                             [ text (t model.translations "home.intro") ]
                         , H.a [ class "btn btn-full", href "schedule" ]
