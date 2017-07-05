@@ -420,30 +420,6 @@ schedule model =
                         [ text "-" ]
                     ]
                     , H.tr []
-                    -- [ H.th [ scope "row" ]
-                    --     [ H.a [ href "http://comingle.net/inn/kanazawa-tabine" ]
-                    --     [ text "旅音(tabi-Ne) Guesthouse" ] ,text ", Kanazawa"
-                    --     , H.br []
-                    --     []
-                    --     , H.span [ class "address" ]
-                    --     [ text "Starting 31st May" ]
-                    --     ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- , H.td []
-                    --     [ text "10:30am - 75mins" ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- , H.td []
-                    --     [ text "-" ]
-                    -- ]
-                    -- , H.tr []
                     [ H.th [ scope "row" ]
                         [ H.a [ href "http://takigaharafarm.com" ]
                         [ text (t model.translations "schedule.locations.takigahara.title") ]
@@ -463,7 +439,7 @@ schedule model =
                     , H.td []
                         [ text "-" ]
                     , H.td []
-                        [ text ("10am - 75" ++ (t model.translations "schedule.pricing.mins")) ]
+                        [ text ("10am - 60" ++ (t model.translations "schedule.pricing.mins")) ]
                     , H.td []
                         [ text "-" ]
                     ]
@@ -498,10 +474,7 @@ schedule model =
                 div [class "class-cost"]
                     [   H.p [class "drop-in"] [
                             H.strong [] [text ((t model.translations "schedule.pricing.dropin") ++ ": ")],
-                            text ("60" ++  (t model.translations "schedule.pricing.mins") ++ " "
-                            ++ (t model.translations "schedule.pricing.class") ++ " - 1,200円, 75"
-                            ++ (t model.translations "schedule.pricing.mins") ++ " "
-                            ++ (t model.translations "schedule.pricing.class") ++ " - 1,500円")
+                            text ("60" ++  (t model.translations "schedule.pricing.mins"))
                         ],
                         H.p [class "monthly"] [
                             H.strong [] [text ((t model.translations "schedule.pricing.monthly") ++ ": ")],
