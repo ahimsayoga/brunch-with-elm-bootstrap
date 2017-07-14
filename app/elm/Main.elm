@@ -474,7 +474,7 @@ schedule model =
                 div [class "class-cost"]
                     [   H.p [class "drop-in"] [
                             H.strong [] [text ((t model.translations "schedule.pricing.dropin") ++ ": ")],
-                            text ("60" ++  (t model.translations "schedule.pricing.mins"))
+                            text ("1,200円")
                         ],
                         H.p [class "monthly"] [
                             H.strong [] [text ((t model.translations "schedule.pricing.monthly") ++ ": ")],
